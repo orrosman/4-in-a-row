@@ -31,9 +31,11 @@ class Connect4 {
 	}
 
 	//gets a start point
-	checkWinHorizontal(colum, row, color) {
+	checkWinHorizontally(colum, row, color) {
 		let count = 0;
+		//check win to the right
 		for (let i = 0; i < 4; i++) {
+			//check for color matching & not over-iterating the array
 			if (this._board[colum + i][row] == color && colum + i < 7) {
 				count++;
 				if (count == 4) {
@@ -45,8 +47,43 @@ class Connect4 {
 			}
 		}
 		count = 0;
+		//check win to the left
 		for (let i = 0; i < 4; i++) {
+			//check for color matching & not over-iterating the array
 			if (this._board[colum - i][row] == color && colum - i > 0) {
+				count++;
+				if (count == 4) {
+					return true;
+				}
+			} else {
+				count = 0;
+				break;
+			}
+		}
+
+		return false;
+	}
+	//gets a start point
+	checkWinVertically(colum, row, color) {
+		let count = 0;
+		//check win up
+		for (let i = 0; i < 4; i++) {
+			//check for color matching & not over-iterating the array
+			if (this._board[colum][row + i] == color && row + i < 7) {
+				count++;
+				if (count == 4) {
+					return true;
+				}
+			} else {
+				count = 0;
+				break;
+			}
+		}
+		count = 0;
+		//check win down
+		for (let i = 0; i < 4; i++) {
+			//check for color matching & not over-iterating the array
+			if (this._board[colum][row - i] == color && row - i >= 0) {
 				count++;
 				if (count == 4) {
 					return true;

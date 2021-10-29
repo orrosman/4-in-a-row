@@ -1,0 +1,24 @@
+h1 {
+	text-align: center;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	max-width: 800px;
+	padding-bottom: 1em;
+	background-color: rgb(82, 140, 207);
+}
+.colum {
+	display: table-cell;
+}
+
+.cell {
+	width: 90px;
+	height: 90px;
+	margin: 5px;
+	border: 2px solid black;
+	border-radius: 50%;
+	background-color: white;
+	cursor: pointer;
+}

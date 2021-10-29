@@ -16,8 +16,7 @@ class Connect4 {
 		for (let i = 0; i < this._board[colum].length; i++) {
 			if (!this._board[colum][i]) {
 				this._board[colum].splice(i, 1, player);
-				this.switchPlayer();
-				return;
+				return i; //return the row the disk landed on
 			}
 		}
 	}
@@ -36,7 +35,7 @@ class Connect4 {
 		//check win to the right
 		for (let i = 0; i < 4; i++) {
 			//check for color matching & not over-iterating the array
-			if (this._board[colum + i][row] == color && colum + i < 7) {
+			if (colum + i < 7 && this._board[colum + i][row] == color) {
 				count++;
 				if (count == 4) {
 					return true;
@@ -50,7 +49,7 @@ class Connect4 {
 		//check win to the left
 		for (let i = 0; i < 4; i++) {
 			//check for color matching & not over-iterating the array
-			if (this._board[colum - i][row] == color && colum - i > 0) {
+			if (colum - i > 0 && this._board[colum - i][row] == color) {
 				count++;
 				if (count == 4) {
 					return true;
@@ -70,7 +69,7 @@ class Connect4 {
 		//check win up
 		for (let i = 0; i < 4; i++) {
 			//check for color matching & not over-iterating the array
-			if (this._board[colum][row + i] == color && row + i < 7) {
+			if (row + i < 7 && this._board[colum][row + i] == color) {
 				count++;
 				if (count == 4) {
 					return true;
@@ -84,7 +83,7 @@ class Connect4 {
 		//check win down
 		for (let i = 0; i < 4; i++) {
 			//check for color matching & not over-iterating the array
-			if (this._board[colum][row - i] == color && row - i >= 0) {
+			if (row - i >= 0 && this._board[colum][row - i] == color) {
 				count++;
 				if (count == 4) {
 					return true;
@@ -105,9 +104,9 @@ class Connect4 {
 		for (let i = 0; i < 4; i++) {
 			//check for color matching & not over-iterating the array
 			if (
-				this._board[colum + i][row + i] == color &&
 				row + i < 7 &&
-				colum + i < 7
+				colum + i < 7 &&
+				this._board[colum + i][row + i] == color
 			) {
 				count++;
 				if (count == 4) {
@@ -123,9 +122,9 @@ class Connect4 {
 		for (let i = 0; i < 4; i++) {
 			//check for color matching & not over-iterating the array
 			if (
-				this._board[colum + i][row - i] == color &&
 				colum + i < 7 &&
-				row - i >= 0
+				row - i >= 0 &&
+				this._board[colum + i][row - i] == color
 			) {
 				count++;
 				if (count == 4) {
@@ -141,9 +140,9 @@ class Connect4 {
 		for (let i = 0; i < 4; i++) {
 			//check for color matching & not over-iterating the array
 			if (
-				this._board[colum - i][row + i] == color &&
 				colum - i >= 0 &&
-				row + i < 7
+				row + i < 7 &&
+				this._board[colum - i][row + i] == color
 			) {
 				count++;
 				if (count == 4) {
@@ -159,9 +158,9 @@ class Connect4 {
 		for (let i = 0; i < 4; i++) {
 			//check for color matching & not over-iterating the array
 			if (
-				this._board[colum - i][row - i] == color &&
 				colum - i >= 0 &&
-				row - i >= 0
+				row - i >= 0 &&
+				this._board[colum - i][row - i] == color
 			) {
 				count++;
 				if (count == 4) {
@@ -175,11 +174,41 @@ class Connect4 {
 		return false;
 	}
 
-	play(move) {
+	checkWin(colum, row, color) {
+		if (
+			this.checkWinHorizontally(colum, row, color) ||
+			this.checkWinVertically(colum, row, color) ||
+			this.checkWinDiagonally(colum, row, color)
+		) {
+			this._finished = true;
+			return color;
+		} else {
+			return false;
+		}
+	}
+
+	checkDraw() {
+		for (let i = 0; i < this._board.length; i++) {
+			for (let j = 0; j < this._board[i].length; j++) {
+				if (this.checkWin(i, j, this._board[i][j])) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	play(colum) {
 		if (this._finished || move < 0 || move > 6) {
 			return false;
 		} else {
-			this.addToBoard(1, 'blue');
+			let row = this.addToBoard(colum, this._currentPlayer);
+			if (this.checkWin(colum, row, this._currentPlayer)) {
+				return this._currentPlayer; //return the name of the winner
+			} else {
+				this.switchPlayer();
+				return false; //indicate for no win
+			}
 		}
 	}
 }

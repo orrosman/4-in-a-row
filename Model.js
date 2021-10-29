@@ -63,6 +63,7 @@ class Connect4 {
 
 		return false;
 	}
+
 	//gets a start point
 	checkWinVertically(colum, row, color) {
 		let count = 0;
@@ -95,6 +96,29 @@ class Connect4 {
 		}
 
 		return false;
+	}
+
+	//gets a start point
+	checkWinDiagonally(colum, row, color) {
+		let count = 0;
+		//check win bottom-left to upper-right
+		for (let i = 0; i < 4; i++) {
+			console.log(this._board[colum + i][row + i]);
+			//check for color matching & not over-iterating the array
+			if (
+				this._board[colum + i][row + i] == color &&
+				row + i < 7 &&
+				colum + i < 7
+			) {
+				count++;
+				if (count == 4) {
+					return true;
+				}
+			} else {
+				count = 0;
+				break;
+			}
+		}
 	}
 
 	play(move) {

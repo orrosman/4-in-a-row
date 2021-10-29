@@ -101,9 +101,8 @@ class Connect4 {
 	//gets a start point
 	checkWinDiagonally(colum, row, color) {
 		let count = 0;
-		//check win bottom-left to upper-right
+		//check win starting point to upper-right
 		for (let i = 0; i < 4; i++) {
-			console.log(this._board[colum + i][row + i]);
 			//check for color matching & not over-iterating the array
 			if (
 				this._board[colum + i][row + i] == color &&
@@ -119,6 +118,25 @@ class Connect4 {
 				break;
 			}
 		}
+
+		//check win starting point to lower-right
+		for (let i = 0; i < 4; i++) {
+			//check for color matching & not over-iterating the array
+			if (
+				this._board[colum + i][row - i] == color &&
+				colum + i < 7 &&
+				row - i >= 0
+			) {
+				count++;
+				if (count == 4) {
+					return true;
+				}
+			} else {
+				count = 0;
+				break;
+			}
+		}
+		return false;
 	}
 
 	play(move) {

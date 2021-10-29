@@ -136,6 +136,25 @@ class Connect4 {
 				break;
 			}
 		}
+
+		//check win starting point to upper-left
+		for (let i = 0; i < 4; i++) {
+			//check for color matching & not over-iterating the array
+			console.log(this._board[colum - i][row + i]);
+			if (
+				this._board[colum - i][row + i] == color &&
+				colum - i >= 0 &&
+				row + i < 7
+			) {
+				count++;
+				if (count == 4) {
+					return true;
+				}
+			} else {
+				count = 0;
+				break;
+			}
+		}
 		return false;
 	}
 

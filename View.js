@@ -11,6 +11,7 @@ export default class View {
 		newBoard.setAttribute('id', 'board');
 		newBoard.setAttribute('class', 'd-flex justify-content-center');
 
+		//create a new board
 		for (let colum = 0; colum < 7; colum++) {
 			let newColum = this.createColum(colum);
 			for (let cell = 0; cell < 7; cell++) {
@@ -20,6 +21,7 @@ export default class View {
 			newBoard.appendChild(newColum);
 		}
 
+		//adds new board to DOM
 		if (document.querySelector('#board')) {
 			document.querySelector('#board').remove();
 			document.querySelector('#board-container').appendChild(newBoard);
@@ -41,6 +43,7 @@ export default class View {
 		return newCell;
 	}
 
+	//message the user for invalid move
 	invalidMove() {
 		if (!document.getElementById('invalid-move')) {
 			const messageElement = document.createElement('div');
@@ -50,6 +53,7 @@ export default class View {
 		}
 	}
 
+	//removes the message for invalid move
 	removeInvalidMove() {
 		if (document.getElementById('invalid-move')) {
 			document.getElementById('invalid-move').remove();

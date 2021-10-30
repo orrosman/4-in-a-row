@@ -9,6 +9,7 @@ export default class Controller {
 		const board = document.querySelectorAll('.colum');
 
 		this.addClickEvent(board);
+
 		document.getElementById('reset-game').addEventListener('click', () => {
 			this.resetGame();
 		});
@@ -22,10 +23,10 @@ export default class Controller {
 				let newBoard = this.model.play(Number(colum.id)); //return a new board or false (for invalid move)
 
 				if (newBoard) {
-					this.view.renderBoard(newBoard);
+					this.view.renderBoard(newBoard); //render new board
 
 					const columns = document.querySelectorAll('.colum');
-					this.addClickEvent(columns);
+					this.addClickEvent(columns); //add event listeners for new board
 					this.view.removeInvalidMove();
 
 					const resultWin = this.checkWin();

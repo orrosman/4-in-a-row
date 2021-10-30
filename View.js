@@ -9,6 +9,7 @@ export default class View {
 		document.querySelector('.board');
 		const newBoard = document.createElement('div');
 		newBoard.setAttribute('id', 'board');
+		newBoard.setAttribute('class', 'd-flex justify-content-center');
 
 		for (let colum = 0; colum < 7; colum++) {
 			let newColum = this.createColum(colum);

@@ -12,6 +12,7 @@ export default class Controller {
 	}
 
 	addClickEvent(board) {
+		this.showCurrentPlayer();
 		for (const colum of board) {
 			colum.addEventListener('click', () => {
 				let newBoard = this.model.play(Number(colum.id));
@@ -32,6 +33,14 @@ export default class Controller {
 	checkWin() {
 		const lastPosition = this.model.lastPositionPlayed;
 		return this.model.checkWin(...lastPosition);
+	}
+
+	showCurrentPlayer() {
+		const player = this.model._currentPlayer;
+		const playerElement = document.getElementById('player');
+
+		playerElement.innerText = player;
+		playerElement.style.color = player;
 	}
 }
 const app = new Controller();

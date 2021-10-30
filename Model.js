@@ -190,14 +190,20 @@ export default class Connect4 {
 	}
 
 	checkDraw() {
-		for (let i = 0; i < this._board.length; i++) {
-			for (let j = 0; j < this._board[i].length; j++) {
-				if (this.checkWin(i, j, this._board[i][j])) {
-					return false;
+		let count = 0;
+		console.log();
+		for (const colum of this._board) {
+			for (const cell of colum) {
+				if (cell) {
+					count++;
 				}
 			}
 		}
-		return true;
+		if (count == this._board.length * this._board[0].length) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	checkIfFull(colum) {

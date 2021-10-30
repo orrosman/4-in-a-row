@@ -13,18 +13,25 @@ export default class Controller {
 
 	addClickEvent(board) {
 		this.showCurrentPlayer();
+
 		for (const colum of board) {
 			colum.addEventListener('click', () => {
-				let newBoard = this.model.play(Number(colum.id));
+				let newBoard = this.model.play(Number(colum.id)); //return a new board or false (for invalid move)
+
 				if (newBoard) {
 					this.view.renderBoard(newBoard);
+
 					const columns = document.querySelectorAll('.colum');
 					this.addClickEvent(columns);
 					this.view.removeInvalidMove();
 
 					const resultWin = this.checkWin();
+
 					if (resultWin) {
 						alert(`${resultWin} wins!`);
+						this.resetGame();
+					} else if (this.model.checkDraw()) {
+						alert("It's a draw!");
 						this.resetGame();
 					}
 				} else {

@@ -24,6 +24,7 @@ export default class Controller {
 					const resultWin = this.checkWin();
 					if (resultWin) {
 						alert(`${resultWin} wins!`);
+						this.resetGame();
 					}
 				}
 			});
@@ -41,6 +42,15 @@ export default class Controller {
 
 		playerElement.innerText = player;
 		playerElement.style.color = player;
+	}
+	resetGame() {
+		this.view = new View();
+		this.model = new Connect4();
+
+		this.view.renderBoard(this.model._board);
+		const board = document.querySelectorAll('.colum');
+
+		this.addClickEvent(board);
 	}
 }
 const app = new Controller();

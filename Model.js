@@ -1,7 +1,8 @@
-class Connect4 {
+export default class Connect4 {
 	constructor() {
 		this._board = this.createBoard();
 		this._currentPlayer = 'Blue';
+		this.lastPositionPlayed = [];
 		this._finished = false;
 	}
 	createBoard() {
@@ -16,7 +17,8 @@ class Connect4 {
 		for (let i = 0; i < this._board[colum].length; i++) {
 			if (!this._board[colum][i]) {
 				this._board[colum].splice(i, 1, player);
-				return i; //return the row the disk landed on
+				this.lastPositionPlayed = [colum, i, player];
+				return;
 			}
 		}
 	}
@@ -198,17 +200,28 @@ class Connect4 {
 		return true;
 	}
 
+	checkIfFull(colum) {
+		if (this._board[colum][6]) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	play(colum) {
-		if (this._finished || move < 0 || move > 6) {
+		if (this._finished || colum < 0 || colum > 6 || this.checkIfFull(colum)) {
 			return false;
 		} else {
 			let row = this.addToBoard(colum, this._currentPlayer);
-			if (this.checkWin(colum, row, this._currentPlayer)) {
-				return this._currentPlayer; //return the name of the winner
-			} else {
-				this.switchPlayer();
-				return false; //indicate for no win
-			}
+			this.switchPlayer();
+			return this._board; //indicate for no win
+
+			// if (this.checkWin(colum, row, this._currentPlayer)) {
+			// 	return this._currentPlayer; //indicate for win
+			// } else {
+			// 	this.switchPlayer();
+			// 	return this._board; //indicate for no win
+			// }
 		}
 	}
 }

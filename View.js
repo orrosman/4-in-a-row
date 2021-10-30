@@ -1,26 +1,42 @@
-// import Event from './Events';
-class View {
+export default class View {
 	constructor() {
-		this._playerEvent = new Event();
+		//create a board
+		const newBoard = document.createElement('div');
+		newBoard.className = 'board';
 	}
 
-	render() {
-		const board = document.createElement('div');
-		board.className = 'board';
+	renderBoard(board) {
+		document.querySelector('.board');
+		const newBoard = document.createElement('div');
+		newBoard.setAttribute('id', 'board');
 
 		for (let colum = 0; colum < 7; colum++) {
-			let newColum = document.createElement('div');
-			newColum.setAttribute('id', `colum_${colum}`);
-			newColum.setAttribute('class', `colum`);
+			let newColum = this.createColum(colum);
 			for (let cell = 0; cell < 7; cell++) {
-				let newCell = document.createElement('div');
-				newCell.setAttribute('class', `cell`);
-				newCell.innerText = 'h';
-				newColum.appendChild(newCell);
+				let newCell = this.createCell(board[colum][cell]);
+				newColum.prepend(newCell);
 			}
-			board.appendChild(newColum);
+			newBoard.appendChild(newColum);
 		}
-		return board;
+
+		if (document.querySelector('#board')) {
+			document.querySelector('#board').remove();
+			document.querySelector('.container').appendChild(newBoard);
+		} else {
+			document.querySelector('.container').appendChild(newBoard);
+		}
+	}
+
+	createColum(id) {
+		const newColum = document.createElement('div');
+		newColum.setAttribute('id', id);
+		newColum.setAttribute('class', `colum`);
+		return newColum;
+	}
+	createCell(color) {
+		const newCell = document.createElement('div');
+		newCell.setAttribute('class', `cell`);
+		newCell.style.backgroundColor = color;
+		return newCell;
 	}
 }
-export default View;

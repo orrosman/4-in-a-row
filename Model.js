@@ -191,7 +191,6 @@ export default class Connect4 {
 
 	checkDraw() {
 		let count = 0;
-		console.log();
 		for (const colum of this._board) {
 			for (const cell of colum) {
 				if (cell) {

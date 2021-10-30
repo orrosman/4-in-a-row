@@ -1,3 +1,7 @@
+body {
+	background: rgb(228, 229, 138) !important;
+}
+
 h1 {
 	text-align: center;
 }
@@ -20,6 +24,6 @@ h1 {
 	margin: 5px;
 	border: 2px solid black;
 	border-radius: 50%;
-	background-color: white;
+	background-color: rgb(180, 138, 138);
 	cursor: pointer;
 }

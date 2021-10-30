@@ -20,12 +20,15 @@ export default class Controller {
 					this.view.renderBoard(newBoard);
 					const columns = document.querySelectorAll('.colum');
 					this.addClickEvent(columns);
+					this.view.removeInvalidMove();
 
 					const resultWin = this.checkWin();
 					if (resultWin) {
 						alert(`${resultWin} wins!`);
 						this.resetGame();
 					}
+				} else {
+					this.view.invalidMove();
 				}
 			});
 		}

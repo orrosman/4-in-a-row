@@ -22,9 +22,9 @@ export default class View {
 
 		if (document.querySelector('#board')) {
 			document.querySelector('#board').remove();
-			document.querySelector('.container').appendChild(newBoard);
+			document.querySelector('#board-container').appendChild(newBoard);
 		} else {
-			document.querySelector('.container').appendChild(newBoard);
+			document.querySelector('#board-container').appendChild(newBoard);
 		}
 	}
 
@@ -39,5 +39,20 @@ export default class View {
 		newCell.setAttribute('class', `cell`);
 		newCell.style.backgroundColor = color;
 		return newCell;
+	}
+
+	invalidMove() {
+		if (!document.getElementById('invalid-move')) {
+			const messageElement = document.createElement('div');
+			messageElement.setAttribute('id', 'invalid-move');
+			messageElement.innerText = 'Colum is full, choose another colum';
+			document.querySelector('#info').append(messageElement);
+		}
+	}
+
+	removeInvalidMove() {
+		if (document.getElementById('invalid-move')) {
+			document.getElementById('invalid-move').remove();
+		}
 	}
 }

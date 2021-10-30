@@ -201,6 +201,7 @@ export default class Connect4 {
 	}
 
 	checkIfFull(colum) {
+		//check the last row of the colum
 		if (this._board[colum][6]) {
 			return true;
 		} else {
@@ -212,16 +213,9 @@ export default class Connect4 {
 		if (this._finished || colum < 0 || colum > 6 || this.checkIfFull(colum)) {
 			return false;
 		} else {
-			let row = this.addToBoard(colum, this._currentPlayer);
+			this.addToBoard(colum, this._currentPlayer);
 			this.switchPlayer();
 			return this._board; //indicate for no win
-
-			// if (this.checkWin(colum, row, this._currentPlayer)) {
-			// 	return this._currentPlayer; //indicate for win
-			// } else {
-			// 	this.switchPlayer();
-			// 	return this._board; //indicate for no win
-			// }
 		}
 	}
 }

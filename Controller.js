@@ -9,6 +9,9 @@ export default class Controller {
 		const board = document.querySelectorAll('.colum');
 
 		this.addClickEvent(board);
+		document.getElementById('reset-game').addEventListener('click', () => {
+			this.resetGame();
+		});
 	}
 
 	addClickEvent(board) {
